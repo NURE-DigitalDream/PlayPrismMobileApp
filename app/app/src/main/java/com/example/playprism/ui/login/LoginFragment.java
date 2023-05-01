@@ -17,7 +17,6 @@ public class LoginFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        getContext().getTheme().applyStyle(getId(), true);
         binding = FragmentLoginBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
