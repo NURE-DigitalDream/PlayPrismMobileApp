@@ -64,7 +64,7 @@
         android:id="@+id/checkBox"
         android:layout_width="33dp"
         android:layout_height="31dp"
-        android:layout_marginStart="38dp"
+        android:layout_marginStart="42dp"
         android:layout_marginTop="20dp"
         android:buttonTint="#CACED9"
         android:text=""
@@ -78,7 +78,7 @@
         android:id="@+id/textView_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="42dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/proxima_semibold"
         android:text="Пароль"
@@ -111,7 +111,7 @@
         android:id="@+id/textView_email"
         android:layout_width="wrap_content"
         android:layout_height="25dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="42dp"
         android:layout_marginTop="35dp"
         android:fontFamily="@font/proxima_semibold"
         android:text="Email / Логін"
@@ -177,8 +177,5 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/checkBox"
         app:layout_constraintTop_toBottomOf="@+id/etPassword" />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
