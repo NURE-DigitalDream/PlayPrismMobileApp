@@ -1,16 +1,16 @@
-package com.example.playprism.ui.home;
+package com.example.playprism.ui.giveaways;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+public class GiveawaysViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public HomeViewModel() {
+    public GiveawaysViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        mText.setValue("This is giveaways fragment");
     }
 
     public LiveData<String> getText() {

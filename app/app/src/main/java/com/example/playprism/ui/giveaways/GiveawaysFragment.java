@@ -1,4 +1,4 @@
-package com.example.playprism.ui.notifications;
+package com.example.playprism.ui.giveaways;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.playprism.databinding.FragmentNotificationsBinding;
+import com.example.playprism.databinding.FragmentGiveawaysBinding;
 
-public class NotificationsFragment extends Fragment {
+public class GiveawaysFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
+    private FragmentGiveawaysBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        NotificationsViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
+        GiveawaysViewModel giveawaysViewModel =
+                new ViewModelProvider(this).get(GiveawaysViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentGiveawaysBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textNotifications;
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textDashboard;
+        giveawaysViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
