@@ -85,3 +85,4 @@ lint/tmp/
 # lint/reports/
 app/.idea/misc.xml
 app/.idea/compiler.xml
+app/.idea/misc.xml
