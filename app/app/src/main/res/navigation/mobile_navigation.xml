@@ -8,24 +8,26 @@
     <fragment
         android:id="@+id/navigation_login"
         android:name="com.example.playprism.ui.login.LoginFragment"
-        android:label="Login"
         tools:layout="@layout/fragment_login" />
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.playprism.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_signUp"
+        android:name="com.example.playprism.ui.signUp.SignUpFragment"
+        tools:layout="@layout/fragment_sign_up" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.playprism.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_profile"
+        android:name="com.example.playprism.ui.profile.ProfileFragment"
+        tools:layout="@layout/fragment_profile" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.playprism.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_giveaways"
+        android:name="com.example.playprism.ui.giveaways.GiveawaysFragment"
+        tools:layout="@layout/fragment_giveaways" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.example.playprism.ui.settings.SettingsFragment"
+        tools:layout="@layout/fragment_settings" />
+
 </navigation>
