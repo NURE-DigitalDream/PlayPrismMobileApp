@@ -60,7 +60,7 @@
         android:layout_width="0dp"
         android:layout_height="178dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/settings_block_style"
         app:layout_constraintEnd_toEndOf="parent"
@@ -109,20 +109,6 @@
         app:layout_constraintHorizontal_bias="0.011"
         app:layout_constraintStart_toStartOf="@+id/view1"
         app:layout_constraintTop_toTopOf="@+id/view1" />
-
-    <TextView
-        android:id="@+id/text_notifications"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView3"

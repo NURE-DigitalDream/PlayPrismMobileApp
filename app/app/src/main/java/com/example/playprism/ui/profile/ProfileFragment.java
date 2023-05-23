@@ -22,11 +22,9 @@ public class ProfileFragment extends Fragment {
                 new ViewModelProvider(this).get(ProfileViewModel.class);
 
         binding = FragmentProfileBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
-        profileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+
+        return binding.getRoot();
     }
 
     @Override

@@ -22,11 +22,8 @@ public class GiveawaysFragment extends Fragment {
                 new ViewModelProvider(this).get(GiveawaysViewModel.class);
 
         binding = FragmentGiveawaysBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
 
-        final TextView textView = binding.textDashboard;
-        giveawaysViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+        return binding.getRoot();
     }
 
     @Override

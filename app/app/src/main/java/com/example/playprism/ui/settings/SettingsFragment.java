@@ -20,12 +20,9 @@ public class SettingsFragment extends Fragment {
         SettingsViewModel settingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
 
         binding = FragmentSettingsBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
 
-        final TextView textView = binding.textNotifications;
-        settingsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
-        return root;
+        return binding.getRoot();
     }
 
     @Override
