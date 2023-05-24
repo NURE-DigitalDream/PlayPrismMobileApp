@@ -33,5 +33,9 @@
         android:id="@+id/navigation_purchase_history"
         android:name="com.example.playprism.ui.purchasehistory.PurchaseHistoryFragment"
         tools:layout="@layout/fragment_purchase_history" />
+    <fragment
+        android:id="@+id/navigation_giveaways_item_profile"
+        android:name="com.example.playprism.ui.giveaways.GiveawaysItemFragment"
+        tools:layout="@layout/fragment_giveaways_item_profile" />
 
 </navigation>
