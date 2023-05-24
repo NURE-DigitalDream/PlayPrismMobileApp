@@ -1,14 +1,10 @@
 package com.example.playprism.adapters;
 
-import static java.text.DateFormat.getDateInstance;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,9 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.playprism.R;
 import com.example.playprism.models.PurchasedItem;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -79,9 +73,9 @@ public class HistoryPurchaseAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     protected static class HistoryPurchaseItemViewHolder extends RecyclerView.ViewHolder {
-        private TextView titleTextView;
-        private TextView purchaseDateTextView;
-        private TextView priceTextView;
+        private final TextView titleTextView;
+        private final TextView purchaseDateTextView;
+        private final TextView priceTextView;
 
         public HistoryPurchaseItemViewHolder(View itemView) {
             super(itemView);
