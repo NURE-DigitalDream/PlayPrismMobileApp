@@ -29,5 +29,9 @@
         android:id="@+id/navigation_settings"
         android:name="com.example.playprism.ui.settings.SettingsFragment"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/navigation_purchase_history"
+        android:name="com.example.playprism.ui.purchasehistory.PurchaseHistoryFragment"
+        tools:layout="@layout/fragment_purchase_history" />
 
 </navigation>
