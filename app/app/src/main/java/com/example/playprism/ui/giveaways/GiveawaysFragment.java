@@ -36,17 +36,17 @@ public class GiveawaysFragment extends Fragment {
 
         // create list:
         List<GiveawaysItem> giveawaysItems = new ArrayList<>();
-        giveawaysItems.add(new GiveawaysItem("title 1", "Ключ", null));
-        giveawaysItems.add(new GiveawaysItem("title 2", "Ключ", null));
-        giveawaysItems.add(new GiveawaysItem("title 3", "Ключ", null));
-        giveawaysItems.add(new GiveawaysItem("title 4", "Ключ", null));
-        giveawaysItems.add(new GiveawaysItem("title 5", "Ключ", null));
-        giveawaysItems.add(new GiveawaysItem("title 6", "Ключ", null));
-        giveawaysItems.add(new GiveawaysItem("title 7", "Ключ", null));
-        giveawaysItems.add(new GiveawaysItem("title 8", "Ключ", null));
-        giveawaysItems.add(new GiveawaysItem("title 9", "Ключ", null));
-        giveawaysItems.add(new GiveawaysItem("title 10", "Ключ", null));
-        giveawaysItems.add(new GiveawaysItem("title 11", "Ключ", null));
+        giveawaysItems.add(new GiveawaysItem("1","title 1", "Ключ", null));
+        giveawaysItems.add(new GiveawaysItem("2","title 2", "Ключ", null));
+        giveawaysItems.add(new GiveawaysItem("3","title 3", "Ключ", null));
+        giveawaysItems.add(new GiveawaysItem("4","title 4", "Ключ", null));
+        giveawaysItems.add(new GiveawaysItem("5","title 5", "Ключ", null));
+        giveawaysItems.add(new GiveawaysItem("6","title 6", "Ключ", null));
+        giveawaysItems.add(new GiveawaysItem("7","title 7", "Ключ", null));
+        giveawaysItems.add(new GiveawaysItem("8","title 8", "Ключ", null));
+        giveawaysItems.add(new GiveawaysItem("9","title 9", "Ключ", null));
+        giveawaysItems.add(new GiveawaysItem("10","title 10", "Ключ", null));
+        giveawaysItems.add(new GiveawaysItem("11","title 11", "Ключ", null));
 
         // define the adapter:
         GiveawaysAdapter adapter = new GiveawaysAdapter(this.getContext(), giveawaysItems);
