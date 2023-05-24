@@ -3,6 +3,7 @@ package com.example.playprism;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.playprism.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +12,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.playprism.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
