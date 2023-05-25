@@ -182,20 +182,21 @@
         android:id="@+id/winning_banner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:src="@drawable/winning_banner"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/date_time_bar_finished"
-        android:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@id/date_time_bar_finished" />
 
     <TextView
         android:id="@+id/winning_text"
-        android:layout_width="320dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/proxima_regular"
         android:text="Вітаємо з перемогою! Товар автоматично буде додано до вашого кошика, залишається лише підтвердити додання до бібліотеки і провести безкоштовну транзакцію."
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -204,7 +205,7 @@
 
     <Button
         android:id="@+id/win_button"
-        android:layout_width="320dp"
+        android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/win_button"
