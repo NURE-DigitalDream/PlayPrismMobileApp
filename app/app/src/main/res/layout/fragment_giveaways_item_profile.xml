@@ -61,11 +61,11 @@
         android:layout_height="120dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="18dp"
+        android:src="@drawable/giveaways_item_profile_photo_sample"
         app:cardCornerRadius="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bigTitle"
-        android:src="@drawable/giveaways_item_profile_photo_sample"
-        app:shapeAppearanceOverlay="@style/roundedCorners"/>
+        app:shapeAppearanceOverlay="@style/roundedCorners" />
 
     <TextView
         android:id="@+id/minorTitle"
@@ -164,7 +164,61 @@
         android:src="@drawable/term_bar_photo_sample"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/giveawayEndDateTextView" />
+        app:layout_constraintTop_toBottomOf="@id/giveawayEndDateTextView"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/date_time_bar_finished"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:src="@drawable/finished_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/giveawayEndDateTextView"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/winning_banner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/winning_banner"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/date_time_bar_finished" />
+
+    <TextView
+        android:id="@+id/winning_text"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/proxima_regular"
+        android:text="Вітаємо з перемогою! Товар автоматично буде додано до вашого кошика, залишається лише підтвердити додання до бібліотеки і провести безкоштовну транзакцію."
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/winning_banner" />
+
+    <Button
+        android:id="@+id/win_button"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/win_button"
+        android:elevation="4dp"
+        android:fontFamily="@font/proxima_semibold"
+        android:text="Підписатися"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/winning_text" />
 
     <ImageView
         android:id="@+id/finish_line"
@@ -187,7 +241,9 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date_time_bar" />
+        app:layout_constraintTop_toBottomOf="@+id/date_time_bar"
+        android:visibility="invisible"
+        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/timeLeftConstraintLayout"
@@ -197,7 +253,8 @@
         android:background="@drawable/time_rectangle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeLeftTextView">
+        app:layout_constraintTop_toBottomOf="@+id/timeLeftTextView"
+        android:visibility="invisible">
 
         <TextView
             android:id="@+id/daysTextView"
@@ -341,6 +398,64 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
+        android:id="@+id/anotherDayTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/proxima_regular"
+        android:text="Іншого разу повезе!"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeLeftConstraintLayout"
+        android:visibility="invisible"
+        />
+
+    <TextView
+        android:id="@+id/winnerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/proxima_regular"
+        android:text="Переможець"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/anotherDayTextView"
+        android:visibility="invisible"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/winner_ImageView"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="18dp"
+        android:src="@drawable/profile_photo_sample"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/winnerNameTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/winnerTextView"
+        app:shapeAppearanceOverlay="@style/roundedCorners"
+        android:visibility="invisible"
+        />
+
+    <TextView
+        android:id="@+id/winnerNameTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="27dp"
+        android:fontFamily="@font/proxima_semibold"
+        android:text="Billy Herrington"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/winner_ImageView"
+        app:layout_constraintTop_toBottomOf="@+id/winnerTextView"
+        android:visibility="invisible"/>
+
+    <TextView
         android:id="@+id/conditionForParticipationTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -351,7 +466,8 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeLeftConstraintLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/timeLeftConstraintLayout"
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/button_profile_edit"
@@ -367,6 +483,7 @@
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/conditionForParticipationTextView" />
@@ -388,6 +505,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_profile_edit"
-        />
+        android:visibility="invisible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
