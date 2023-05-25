@@ -51,6 +51,9 @@ public class PurchaseHistoryFragment extends Fragment {
         purchasedItems.add(new PurchasedItem("title 13", Calendar.getInstance().getTime(), 1750));
         purchasedItems.add(new PurchasedItem("title 14", Calendar.getInstance().getTime(), 1750));
 
+
+        binding.backIcon.setOnClickListener(v -> getActivity().onBackPressed());
+
         // define the adapter:
         HistoryPurchaseAdapter adapter = new HistoryPurchaseAdapter(this.getContext(), purchasedItems);
 

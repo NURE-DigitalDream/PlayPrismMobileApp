@@ -22,6 +22,7 @@ public class GiveawaysItemFragment extends Fragment {
         binding = FragmentGiveawaysItemProfileBinding.inflate(inflater, container, false);
 
         binding.bigTitle.setText("Giveaway " + giveawayId);
+        binding.backIcon.setOnClickListener(v -> getActivity().onBackPressed());
 
         root = binding.getRoot();
 
