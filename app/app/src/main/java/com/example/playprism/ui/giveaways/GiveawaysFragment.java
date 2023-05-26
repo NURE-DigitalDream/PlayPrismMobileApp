@@ -43,17 +43,10 @@ public class GiveawaysFragment extends Fragment implements OnBackPressed {
 
         // create list:
         List<GiveawaysItem> giveawaysItems = new ArrayList<>();
-        giveawaysItems.add(new GiveawaysItem("1","title 1", "Ключ", null));
-        giveawaysItems.add(new GiveawaysItem("2","title 2", "Ключ", null));
-        giveawaysItems.add(new GiveawaysItem("3","title 3", "Ключ", null));
-        giveawaysItems.add(new GiveawaysItem("4","title 4", "Ключ", null));
-        giveawaysItems.add(new GiveawaysItem("5","title 5", "Ключ", null));
-        giveawaysItems.add(new GiveawaysItem("6","title 6", "Ключ", null));
-        giveawaysItems.add(new GiveawaysItem("7","title 7", "Ключ", null));
-        giveawaysItems.add(new GiveawaysItem("8","title 8", "Ключ", null));
-        giveawaysItems.add(new GiveawaysItem("9","title 9", "Ключ", null));
-        giveawaysItems.add(new GiveawaysItem("10","title 10", "Ключ", null));
-        giveawaysItems.add(new GiveawaysItem("11","title 11", "Ключ", null));
+        giveawaysItems.add(new GiveawaysItem("1", "Cyberpunk2077", "Ключ", null, "2020", "CD PROJEKT RED", "Пригоди, Рольові, Екшени, Шутери, Відкритий світ, З сюжетом", GiveawayStatus.FINISHED_YOU_NOT_WIN));
+        giveawaysItems.add(new GiveawaysItem("2", "Cyberpunk2077", "Ключ", null, "2020", "CD PROJEKT RED", "Пригоди, Рольові, Екшени, Шутери, Відкритий світ, З сюжетом", GiveawayStatus.FINISHED_YOU_WIN));
+        giveawaysItems.add(new GiveawaysItem("3", "Cyberpunk2077", "Ключ",null, "2020", "CD PROJEKT RED", "Пригоди, Рольові, Екшени, Шутери, Відкритий світ, З сюжетом", GiveawayStatus.NOT_FINISHED_YOU_SUBSCRIBED));
+        giveawaysItems.add(new GiveawaysItem("4", "Cyberpunk2077", "Ключ",null, "2020", "CD PROJEKT RED", "Пригоди, Рольові, Екшени, Шутери, Відкритий світ, З сюжетом", GiveawayStatus.NOT_FINISHED_YOU_NOT_SUBSCRIBED));
 
         // define the adapter:
         GiveawaysAdapter adapter = new GiveawaysAdapter(this.getContext(), giveawaysItems);
