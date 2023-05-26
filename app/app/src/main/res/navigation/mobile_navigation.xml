@@ -12,7 +12,7 @@
 
     <fragment
         android:id="@+id/navigation_signUp"
-        android:name="com.example.playprism.ui.signUp.SignUpFragment"
+        android:name="com.example.playprism.ui.signup.SignUpFragment"
         tools:layout="@layout/fragment_sign_up" />
 
     <fragment

@@ -211,7 +211,7 @@
         android:background="@drawable/win_button"
         android:elevation="4dp"
         android:fontFamily="@font/proxima_semibold"
-        android:text="Підписатися"
+        android:text="Забрати приз"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="20sp"

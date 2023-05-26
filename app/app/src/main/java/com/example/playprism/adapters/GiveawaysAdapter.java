@@ -62,7 +62,6 @@ public class GiveawaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     NavController navController = Navigation.findNavController(v);
                     GiveawaysItemFragment.setGiveawayId(giveawaysItems.get(position).getId());
                     navController.navigate(R.id.navigation_giveaways_item_profile);
-
                 }
         );
 

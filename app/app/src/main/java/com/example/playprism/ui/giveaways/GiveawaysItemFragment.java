@@ -8,7 +8,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
+import com.example.playprism.R;
 import com.example.playprism.databinding.FragmentGiveawaysItemProfileBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class GiveawaysItemFragment extends Fragment {
     private FragmentGiveawaysItemProfileBinding binding;
@@ -19,10 +24,19 @@ public class GiveawaysItemFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
+        BottomNavigationView navView = getActivity().findViewById(R.id.nav_view);
+        navView.setVisibility(View.VISIBLE);
+        navView.getMenu().getItem(1).setChecked(true);
+
         binding = FragmentGiveawaysItemProfileBinding.inflate(inflater, container, false);
 
         binding.bigTitle.setText("Giveaway " + giveawayId);
-        binding.backIcon.setOnClickListener(v -> getActivity().onBackPressed());
+        binding.backIcon.setOnClickListener(v -> {
+            NavController navController = Navigation.findNavController(v);
+            navController.navigate(R.id.navigation_giveaways);
+        });
+
+
 
         root = binding.getRoot();
 

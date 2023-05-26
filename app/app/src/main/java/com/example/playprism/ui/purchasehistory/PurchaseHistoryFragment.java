@@ -9,13 +9,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.playprism.R;
 import com.example.playprism.adapters.HistoryPurchaseAdapter;
 import com.example.playprism.databinding.FragmentPurchaseHistoryBinding;
 import com.example.playprism.models.PurchasedItem;
+import com.example.playprism.ui.giveaways.GiveawaysItemFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -29,8 +34,12 @@ public class PurchaseHistoryFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        PurchaseHistoryViewModel giveawaysViewModel =
-                new ViewModelProvider(this).get(PurchaseHistoryViewModel.class);
+
+        BottomNavigationView navView = getActivity().findViewById(R.id.nav_view);
+        navView.setVisibility(View.VISIBLE);
+        navView.getMenu().getItem(0).setChecked(true);
+
+        PurchaseHistoryViewModel giveawaysViewModel = new ViewModelProvider(this).get(PurchaseHistoryViewModel.class);
 
         binding = FragmentPurchaseHistoryBinding.inflate(inflater, container, false);
 
@@ -52,7 +61,11 @@ public class PurchaseHistoryFragment extends Fragment {
         purchasedItems.add(new PurchasedItem("title 14", Calendar.getInstance().getTime(), 1750));
 
 
-        binding.backIcon.setOnClickListener(v -> getActivity().onBackPressed());
+        binding.backIcon.setOnClickListener(v -> {
+            NavController navController = Navigation.findNavController(v);
+            navController.navigate(R.id.navigation_profile);
+        });
+
 
         // define the adapter:
         HistoryPurchaseAdapter adapter = new HistoryPurchaseAdapter(this.getContext(), purchasedItems);
@@ -66,6 +79,8 @@ public class PurchaseHistoryFragment extends Fragment {
 
         return binding.getRoot();
     }
+
+
 
     @Override
     public void onDestroyView() {

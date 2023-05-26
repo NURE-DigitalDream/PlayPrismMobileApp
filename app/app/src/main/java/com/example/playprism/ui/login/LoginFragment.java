@@ -14,6 +14,9 @@ import com.example.playprism.MainActivity;
 import com.example.playprism.R;
 import com.example.playprism.databinding.FragmentLoginBinding;
 import com.example.playprism.ui.giveaways.GiveawaysFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.Objects;
 
 public class LoginFragment extends Fragment {
 

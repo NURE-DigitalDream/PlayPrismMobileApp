@@ -4,18 +4,23 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.playprism.databinding.ActivityMainBinding;
+import com.example.playprism.ui.util.OnBackPressed;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        navView.setVisibility(View.GONE);
     }
 
     public void hideBottomNavigationView() {
@@ -46,4 +53,13 @@ public class MainActivity extends AppCompatActivity {
         binding.navView.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void onBackPressed() {
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        for (Fragment f : fragments) {
+            if (f instanceof OnBackPressed) {
+                ((OnBackPressed) f).onBackPressed();
+            }
+        }
+    }
 }

@@ -13,22 +13,29 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.playprism.R;
 import com.example.playprism.adapters.GiveawaysAdapter;
 import com.example.playprism.adapters.HistoryPurchaseAdapter;
 import com.example.playprism.databinding.FragmentGiveawaysBinding;
 import com.example.playprism.models.GiveawaysItem;
 import com.example.playprism.models.PurchasedItem;
+import com.example.playprism.ui.util.OnBackPressed;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class GiveawaysFragment extends Fragment {
+public class GiveawaysFragment extends Fragment implements OnBackPressed {
 
     private FragmentGiveawaysBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        BottomNavigationView navView = getActivity().findViewById(R.id.nav_view);
+        navView.setVisibility(View.VISIBLE);
+
         GiveawaysViewModel giveawaysViewModel =
                 new ViewModelProvider(this).get(GiveawaysViewModel.class);
 
@@ -66,5 +73,10 @@ public class GiveawaysFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }

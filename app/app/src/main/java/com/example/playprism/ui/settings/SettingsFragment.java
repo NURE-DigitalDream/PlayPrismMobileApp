@@ -10,9 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.playprism.R;
 import com.example.playprism.databinding.FragmentSettingsBinding;
+import com.example.playprism.ui.util.OnBackPressed;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends Fragment implements OnBackPressed{
 
     private FragmentSettingsBinding binding;
 
@@ -20,6 +23,9 @@ public class SettingsFragment extends Fragment {
         SettingsViewModel settingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
 
         binding = FragmentSettingsBinding.inflate(inflater, container, false);
+
+        BottomNavigationView navView = getActivity().findViewById(R.id.nav_view);
+        navView.setVisibility(View.VISIBLE);
 
 
         return binding.getRoot();
@@ -29,5 +35,10 @@ public class SettingsFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onBackPressed() {
+        
     }
 }

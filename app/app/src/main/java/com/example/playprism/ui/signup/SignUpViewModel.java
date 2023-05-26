@@ -1,4 +1,4 @@
-package com.example.playprism.ui.signUp;
+package com.example.playprism.ui.signup;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

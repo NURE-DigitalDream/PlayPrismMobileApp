@@ -17,8 +17,10 @@ import androidx.navigation.Navigation;
 import com.example.playprism.MainActivity;
 import com.example.playprism.R;
 import com.example.playprism.databinding.FragmentProfileBinding;
+import com.example.playprism.ui.util.OnBackPressed;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements OnBackPressed {
 
     private FragmentProfileBinding binding;
 
@@ -27,16 +29,33 @@ public class ProfileFragment extends Fragment {
     @SuppressLint("ResourceType")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        BottomNavigationView navView = getActivity().findViewById(R.id.nav_view);
+        navView.setVisibility(View.VISIBLE);
+
         ProfileViewModel profileViewModel =
                 new ViewModelProvider(this).get(ProfileViewModel.class);
 
         binding = FragmentProfileBinding.inflate(inflater, container, false);
+        binding.buttonSignOut.setOnClickListener(v -> signOut());
+        binding.buttonPurchaseHistory.setOnClickListener(v -> showPurchaseHistory());
 
         root = binding.getRoot();
 
-        root.findViewById(R.id.button_purchase_history).setOnClickListener(v -> showPurchaseHistory());
+
 
         return binding.getRoot();
+    }
+
+    private void signOut() {
+        NavController navController = getNavController();
+        if (navController == null) {
+            return;
+        }
+
+        BottomNavigationView navView = getActivity().findViewById(R.id.nav_view);
+        navView.setVisibility(View.GONE);
+        navController.navigate(R.id.navigation_login);
     }
 
     private NavController getNavController() {
@@ -63,5 +82,10 @@ public class ProfileFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }
