@@ -17,10 +17,9 @@ import androidx.navigation.Navigation;
 import com.example.playprism.MainActivity;
 import com.example.playprism.R;
 import com.example.playprism.databinding.FragmentProfileBinding;
-import com.example.playprism.ui.util.OnBackPressed;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class ProfileFragment extends Fragment implements OnBackPressed {
+public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
 
@@ -82,10 +81,5 @@ public class ProfileFragment extends Fragment implements OnBackPressed {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    @Override
-    public void onBackPressed() {
-
     }
 }

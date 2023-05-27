@@ -12,10 +12,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.playprism.R;
 import com.example.playprism.databinding.FragmentSettingsBinding;
-import com.example.playprism.ui.util.OnBackPressed;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class SettingsFragment extends Fragment implements OnBackPressed{
+public class SettingsFragment extends Fragment {
 
     private FragmentSettingsBinding binding;
 
@@ -35,10 +34,5 @@ public class SettingsFragment extends Fragment implements OnBackPressed{
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    @Override
-    public void onBackPressed() {
-        
     }
 }

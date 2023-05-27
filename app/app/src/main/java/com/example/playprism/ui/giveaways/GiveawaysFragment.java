@@ -19,14 +19,13 @@ import com.example.playprism.adapters.HistoryPurchaseAdapter;
 import com.example.playprism.databinding.FragmentGiveawaysBinding;
 import com.example.playprism.models.GiveawaysItem;
 import com.example.playprism.models.PurchasedItem;
-import com.example.playprism.ui.util.OnBackPressed;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class GiveawaysFragment extends Fragment implements OnBackPressed {
+public class GiveawaysFragment extends Fragment {
 
     private FragmentGiveawaysBinding binding;
 
@@ -66,10 +65,5 @@ public class GiveawaysFragment extends Fragment implements OnBackPressed {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    @Override
-    public void onBackPressed() {
-
     }
 }

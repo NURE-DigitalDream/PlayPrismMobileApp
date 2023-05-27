@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.playprism.databinding.ActivityMainBinding;
-import com.example.playprism.ui.util.OnBackPressed;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,11 +54,5 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        List<Fragment> fragments = getSupportFragmentManager().getFragments();
-        for (Fragment f : fragments) {
-            if (f instanceof OnBackPressed) {
-                ((OnBackPressed) f).onBackPressed();
-            }
-        }
     }
 }
