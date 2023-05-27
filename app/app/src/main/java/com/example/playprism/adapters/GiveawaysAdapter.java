@@ -23,7 +23,10 @@ import com.example.playprism.R;
 import com.example.playprism.models.GiveawaysItem;
 import com.example.playprism.ui.giveaways.GiveawayStatus;
 import com.example.playprism.ui.giveaways.GiveawaysItemFragment;
+import com.google.android.material.imageview.ShapeableImageView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class GiveawaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -65,6 +68,10 @@ public class GiveawaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         GiveawayStatus status = giveawaysItem.getStatus();
 
+        Date endDate = giveawaysItem.getEndDate();
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        String endDateString = dateFormat.format(endDate);
+
         Button button = giveawayItemViewHolder.takePartButton;
         if (status == GiveawayStatus.FINISHED_YOU_NOT_WIN) {
             button.setBackground(ContextCompat.getDrawable(context, R.drawable.giveaway_finished_button));
@@ -74,10 +81,10 @@ public class GiveawaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             button.setText("Перемога! Забрати приз");
         } else if (status == GiveawayStatus.NOT_FINISHED_YOU_SUBSCRIBED) {
             button.setBackground(ContextCompat.getDrawable(context, R.drawable.participating_button));
-            button.setText("Беру участь до 25.05.2023");
+            button.setText("Беру участь " + endDateString);
         } else if (status == GiveawayStatus.NOT_FINISHED_YOU_NOT_SUBSCRIBED) {
             button.setBackground(ContextCompat.getDrawable(context, R.drawable.participate_button));
-            button.setText("Брати участь до 25.05.2023");
+            button.setText("Брати участь " + endDateString);
         }
 
         giveawayItemViewHolder.takePartButton.setOnClickListener(v -> {
@@ -89,6 +96,8 @@ public class GiveawaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         giveawayItemViewHolder.titleTextView.setText(title);
         giveawayItemViewHolder.categoryTextView.setText(category);
+
+        giveawayItemViewHolder.imageView.setImageDrawable(giveawaysItem.getImage());
     }
 
     @Override
@@ -106,12 +115,14 @@ public class GiveawaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         private final TextView titleTextView;
         private final TextView categoryTextView;
         private final Button takePartButton;
+        private final ShapeableImageView imageView;
 
         public GiveawayItemViewHolder(View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.titleTextView);
             categoryTextView = itemView.findViewById(R.id.giveawayCategoryTextView);
             takePartButton = itemView.findViewById(R.id.button_participate);
+            imageView = itemView.findViewById(R.id.image);
         }
     }
 }

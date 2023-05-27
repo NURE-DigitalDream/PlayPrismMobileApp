@@ -1,5 +1,8 @@
 package com.example.playprism.models;
 
+import android.graphics.drawable.Drawable;
+
+import com.example.playprism.R;
 import com.example.playprism.ui.giveaways.GiveawayStatus;
 
 import java.util.Date;
@@ -7,6 +10,9 @@ import java.util.Date;
 public class GiveawaysItem {
     private String id;
     private String title;
+    private Drawable image;
+    private Date startDate;
+    private Date endDate;
     private String category;
     private String platform;
     private String yearOfRelease;
@@ -15,15 +21,29 @@ public class GiveawaysItem {
     private Date expirationDate;
     private GiveawayStatus status;
 
-    public GiveawaysItem(String id, String title, String category, String platform, String yearOfRelease, String developerCompany, String genres, GiveawayStatus status) {
+    public GiveawaysItem(String id,
+                         String title,
+                         Drawable image,
+                         Date startDate,
+                         Date endDate,
+                         String category,
+                         String platform,
+                         String yearOfRelease,
+                         String developerCompany,
+                         String genres,
+                         GiveawayStatus status) {
         this.id = id;
         this.title = title;
+        this.image = image;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.category = category;
         this.platform = platform;
         this.yearOfRelease = yearOfRelease;
         this.developerCompany = developerCompany;
         this.genres = genres;
         this.status = status;
+
     }
 
     public String getId() {
@@ -38,8 +58,31 @@ public class GiveawaysItem {
         return title;
     }
 
+    public Drawable getImage() {
+        return image;
+    }
+
+    public void setImage(Drawable image) {
+        this.image = image;
+    }
+
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public String getCategory() {
