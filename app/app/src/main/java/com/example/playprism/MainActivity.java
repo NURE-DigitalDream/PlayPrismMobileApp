@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.playprism.databinding.ActivityMainBinding;
+import com.example.playprism.ui.giveaways.GiveawaysItemFragment;
+import com.example.playprism.ui.purchasehistory.PurchaseHistoryFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,5 +56,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
+        List<Fragment> fragments = fragment.getChildFragmentManager().getFragments();
+        fragment = fragments.get(0);
+
+        if (fragment instanceof GiveawaysItemFragment || fragment instanceof PurchaseHistoryFragment) {
+            super.onBackPressed();
+        }
     }
 }
