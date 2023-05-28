@@ -16,6 +16,7 @@ import androidx.navigation.Navigation;
 import com.android.volley.VolleyError;
 import com.example.playprism.MainActivity;
 import com.example.playprism.R;
+import com.example.playprism.bl.services.RequestManager;
 import com.example.playprism.bl.services.ResponseCallback;
 import com.example.playprism.databinding.FragmentLoginBinding;
 import com.example.playprism.ui.giveaways.GiveawaysFragment;
@@ -73,7 +74,7 @@ public class LoginFragment extends Fragment {
             e.printStackTrace();
         }
 
-        String url = "http://10.0.2.2:5000/api/account/login";
+        String url = RequestManager.BASE_URL + "account/login";
 
         makeRequest(getContext(), url, jsonParams, new ResponseCallback() {
             @Override

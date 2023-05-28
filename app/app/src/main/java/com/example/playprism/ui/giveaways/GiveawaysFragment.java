@@ -22,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.example.playprism.R;
 import com.example.playprism.bl.adapters.GiveawaysAdapter;
 import com.example.playprism.bl.responses.GiveawaysResponse;
+import com.example.playprism.bl.services.RequestManager;
 import com.example.playprism.bl.services.ResponseCallback;
 import com.example.playprism.bl.util.JsonParser;
 import com.example.playprism.databinding.FragmentGiveawaysBinding;
@@ -42,6 +43,7 @@ public class GiveawaysFragment extends Fragment {
     private FragmentGiveawaysBinding binding;
 
     private List<GiveawaysItem> giveawaysItems;
+    private List<GiveawaysResponse> giveawaysResponseItems;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -65,10 +67,7 @@ public class GiveawaysFragment extends Fragment {
 
         // create list:
         giveawaysItems = new ArrayList<>();
-        giveawaysItems.add(new GiveawaysItem("1", "Cyberpunk 2077", ContextCompat.getDrawable(context, R.drawable.giveaways_item_photo_cyberpunk), startDate, endDate, "Ключ", null, "2020", "CD PROJEKT RED", "Пригоди, Рольові, Екшени, Шутери, Відкритий світ, З сюжетом", GiveawayStatus.FINISHED_YOU_NOT_WIN));
-        giveawaysItems.add(new GiveawaysItem("2", "The Witcher: Wild Hunt", ContextCompat.getDrawable(context, R.drawable.giveaways_item_photo_the_witcher), startDate, endDate, "Ключ", null, "2020", "CD PROJEKT RED", "Пригоди, Рольові, Екшени, Шутери, Відкритий світ, З сюжетом", GiveawayStatus.FINISHED_YOU_WIN));
-        giveawaysItems.add(new GiveawaysItem("3", "The Elder Skrolls V: Skyrim", ContextCompat.getDrawable(context, R.drawable.giveaways_item_photo_skyrim), startDate, endDate, "Ключ",null, "2020", "CD PROJEKT RED", "Пригоди, Рольові, Екшени, Шутери, Відкритий світ, З сюжетом", GiveawayStatus.NOT_FINISHED_YOU_SUBSCRIBED));
-        giveawaysItems.add(new GiveawaysItem("4", "Resident Evil 4", ContextCompat.getDrawable(context, R.drawable.giveaways_item_photo_resident_evil), startDate, endDate, "Ключ",null, "2020", "CD PROJEKT RED", "Пригоди, Рольові, Екшени, Шутери, Відкритий світ, З сюжетом", GiveawayStatus.NOT_FINISHED_YOU_NOT_SUBSCRIBED));
+
 
         // define the adapter:
         GiveawaysAdapter adapter = new GiveawaysAdapter(this.getContext(), giveawaysItems);
@@ -106,17 +105,15 @@ public class GiveawaysFragment extends Fragment {
             e.printStackTrace();
         }
 
-        String url = "http://10.0.2.2:5000/api/giveaways";
+        String url = RequestManager.BASE_URL + "giveaways";
         String params = "?PageInfo.Size=20&PageInfo.Number=1";
         String fullUrl = url + params;
 
-        final String[] responseString = new String[1];
         makeGetRequest(getContext(), fullUrl, new ResponseCallback() {
             @Override
             public void onResponse(String response) {
-
-                Log.i("Response", response);
-                responseString[0] = response;
+                giveawaysResponseItems = JsonParser.getGiveaways(response);
+                Log.i("Giveaways", giveawaysResponseItems.toString());
             }
             @Override
             public void onError(VolleyError error) {
@@ -124,7 +121,5 @@ public class GiveawaysFragment extends Fragment {
             }
         });
 
-//        List<GiveawaysResponse> giveawaysResponseItems = JsonParser.getGiveaways(responseString[0]);
-//        Log.i("Response List<GiveawaysResponse>", giveawaysResponseItems.toString());
     }
 }

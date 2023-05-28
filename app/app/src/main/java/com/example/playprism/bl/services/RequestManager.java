@@ -19,6 +19,8 @@ public class RequestManager {
     public static final String PREFS_NAME = "UserPreferences";
     public static final String COOKIE_KEY = "CookieRefreshToken";
     public static final String USER_RESPONSE = "UserResponse";
+    public static final String BASE_URL = "http://10.0.2.2:5000/api/";
+
 
     public static void makeRequest(Context context, String url, JSONObject params, ResponseCallback callback) {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
