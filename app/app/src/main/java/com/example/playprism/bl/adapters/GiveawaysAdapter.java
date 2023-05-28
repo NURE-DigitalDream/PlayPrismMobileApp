@@ -1,10 +1,7 @@
-package com.example.playprism.adapters;
-
-import static androidx.navigation.fragment.FragmentKt.findNavController;
+package com.example.playprism.bl.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +10,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.playprism.MainActivity;
 import com.example.playprism.R;
-import com.example.playprism.models.GiveawaysItem;
+import com.example.playprism.bl.models.GiveawaysItem;
 import com.example.playprism.ui.giveaways.GiveawayStatus;
 import com.example.playprism.ui.giveaways.GiveawaysItemFragment;
 import com.google.android.material.imageview.ShapeableImageView;

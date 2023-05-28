@@ -1,8 +1,7 @@
-package com.example.playprism.models;
+package com.example.playprism.bl.models;
 
 import android.graphics.drawable.Drawable;
 
-import com.example.playprism.R;
 import com.example.playprism.ui.giveaways.GiveawayStatus;
 
 import java.util.Date;

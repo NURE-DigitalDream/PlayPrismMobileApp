@@ -1,4 +1,4 @@
-package com.example.playprism.adapters;
+package com.example.playprism.bl.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.playprism.R;
-import com.example.playprism.models.PurchasedItem;
+import com.example.playprism.bl.models.PurchasedItem;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

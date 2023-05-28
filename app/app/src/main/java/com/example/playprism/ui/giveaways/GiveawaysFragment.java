@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -16,11 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.playprism.R;
-import com.example.playprism.adapters.GiveawaysAdapter;
-import com.example.playprism.adapters.HistoryPurchaseAdapter;
+import com.example.playprism.bl.adapters.GiveawaysAdapter;
 import com.example.playprism.databinding.FragmentGiveawaysBinding;
-import com.example.playprism.models.GiveawaysItem;
-import com.example.playprism.models.PurchasedItem;
+import com.example.playprism.bl.models.GiveawaysItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.example.playprism.models;
+package com.example.playprism.bl.models;
 
 import android.graphics.drawable.Drawable;
 

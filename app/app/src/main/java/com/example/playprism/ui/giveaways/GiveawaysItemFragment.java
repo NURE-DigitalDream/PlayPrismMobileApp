@@ -1,7 +1,6 @@
 package com.example.playprism.ui.giveaways;
 
 import android.annotation.SuppressLint;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -9,14 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.playprism.R;
 import com.example.playprism.databinding.FragmentGiveawaysItemProfileBinding;
-import com.example.playprism.models.GiveawaysItem;
+import com.example.playprism.bl.models.GiveawaysItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.SimpleDateFormat;

@@ -1,6 +1,5 @@
 package com.example.playprism.ui.purchasehistory;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,16 +15,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.playprism.R;
-import com.example.playprism.adapters.HistoryPurchaseAdapter;
+import com.example.playprism.bl.adapters.HistoryPurchaseAdapter;
 import com.example.playprism.databinding.FragmentPurchaseHistoryBinding;
-import com.example.playprism.models.PurchasedItem;
-import com.example.playprism.ui.giveaways.GiveawaysItemFragment;
+import com.example.playprism.bl.models.PurchasedItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class PurchaseHistoryFragment extends Fragment {
