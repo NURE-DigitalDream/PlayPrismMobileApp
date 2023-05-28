@@ -156,38 +156,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/genresTextView" />
 
-    <ImageView
+    <ProgressBar
         android:id="@+id/date_time_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="12dp"
+        style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_marginTop="9dp"
-        android:src="@drawable/term_bar_photo_sample"
-        android:visibility="invisible"
+        android:layout_marginBottom="9dp"
+        android:progress="0"
+        android:progressDrawable="@drawable/gradient_progress_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/giveawayEndDateTextView" />
-
-    <ImageView
-        android:id="@+id/date_time_bar_finished_not_win"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
-        android:src="@drawable/finished_bar_not_win"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/giveawayEndDateTextView" />
-
-    <ImageView
-        android:id="@+id/date_time_bar_finished"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:src="@drawable/finished_bar"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/giveawayEndDateTextView" />
+        app:layout_constraintTop_toBottomOf="@id/giveawayEndDateTextView">
+    </ProgressBar>
 
     <ImageView
         android:id="@+id/winning_banner"
@@ -198,7 +179,7 @@
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/date_time_bar_finished" />
+        app:layout_constraintTop_toBottomOf="@id/date_time_bar" />
 
     <TextView
         android:id="@+id/winning_text"

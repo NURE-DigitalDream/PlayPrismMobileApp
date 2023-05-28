@@ -44,20 +44,25 @@ public class GiveawaysFragment extends Fragment {
         binding = FragmentGiveawaysBinding.inflate(inflater, container, false);
 
         Date startDate = new Date();
+        Calendar cal2 = Calendar.getInstance();
+        cal2.set(2023, 4, 15, 18, 0, 0);
+        startDate = cal2.getTime();
 
         Date endDate = new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.set(2023, 5, 15, 18, 0, 0);
-        endDate = cal.getTime();
+        Calendar cal1 = Calendar.getInstance();
+        cal1.set(2023, 5, 15, 18, 0, 0);
+        endDate = cal1.getTime();
+
+        String tgLink = "https://t.me/playprism";
 
         Context context = this.getContext();
 
         // create list:
         List<GiveawaysItem> giveawaysItems = new ArrayList<>();
-        giveawaysItems.add(new GiveawaysItem("1", "Cyberpunk 2077", ContextCompat.getDrawable(context, R.drawable.giveaways_item_photo_cyberpunk), startDate, endDate, "Ключ", null, "2020", "CD PROJEKT RED", "Пригоди, Рольові, Екшени, Шутери, Відкритий світ, З сюжетом", GiveawayStatus.FINISHED_YOU_NOT_WIN));
-        giveawaysItems.add(new GiveawaysItem("2", "The Witcher: Wild Hunt", ContextCompat.getDrawable(context, R.drawable.giveaways_item_photo_the_witcher), startDate, endDate, "Ключ", null, "2020", "CD PROJEKT RED", "Пригоди, Рольові, Екшени, Шутери, Відкритий світ, З сюжетом", GiveawayStatus.FINISHED_YOU_WIN));
-        giveawaysItems.add(new GiveawaysItem("3", "The Elder Skrolls V: Skyrim", ContextCompat.getDrawable(context, R.drawable.giveaways_item_photo_skyrim), startDate, endDate, "Ключ",null, "2020", "CD PROJEKT RED", "Пригоди, Рольові, Екшени, Шутери, Відкритий світ, З сюжетом", GiveawayStatus.NOT_FINISHED_YOU_SUBSCRIBED));
-        giveawaysItems.add(new GiveawaysItem("4", "Resident Evil 4", ContextCompat.getDrawable(context, R.drawable.giveaways_item_photo_resident_evil), startDate, endDate, "Ключ",null, "2020", "CD PROJEKT RED", "Пригоди, Рольові, Екшени, Шутери, Відкритий світ, З сюжетом", GiveawayStatus.NOT_FINISHED_YOU_NOT_SUBSCRIBED));
+        giveawaysItems.add(new GiveawaysItem("1", "Cyberpunk 2077", ContextCompat.getDrawable(context, R.drawable.giveaways_item_photo_cyberpunk), tgLink, startDate, endDate, "Ключ", null, "2020", "CD PROJEKT RED", "Пригоди, Рольові, Екшени, Шутери, Відкритий світ, З сюжетом", GiveawayStatus.FINISHED_YOU_NOT_WIN));
+        giveawaysItems.add(new GiveawaysItem("2", "The Witcher: Wild Hunt", ContextCompat.getDrawable(context, R.drawable.giveaways_item_photo_the_witcher), tgLink, startDate, endDate, "Ключ", null, "2020", "CD PROJEKT RED", "Пригоди, Рольові, Екшени, Шутери, Відкритий світ, З сюжетом", GiveawayStatus.FINISHED_YOU_WIN));
+        giveawaysItems.add(new GiveawaysItem("3", "The Elder Skrolls V: Skyrim", ContextCompat.getDrawable(context, R.drawable.giveaways_item_photo_skyrim), tgLink, startDate, endDate, "Ключ",null, "2020", "CD PROJEKT RED", "Пригоди, Рольові, Екшени, Шутери, Відкритий світ, З сюжетом", GiveawayStatus.NOT_FINISHED_YOU_SUBSCRIBED));
+        giveawaysItems.add(new GiveawaysItem("4", "Resident Evil 4", ContextCompat.getDrawable(context, R.drawable.giveaways_item_photo_resident_evil), tgLink, startDate, endDate, "Ключ",null, "2020", "CD PROJEKT RED", "Пригоди, Рольові, Екшени, Шутери, Відкритий світ, З сюжетом", GiveawayStatus.NOT_FINISHED_YOU_NOT_SUBSCRIBED));
 
         // define the adapter:
         GiveawaysAdapter adapter = new GiveawaysAdapter(this.getContext(), giveawaysItems);

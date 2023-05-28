@@ -11,6 +11,7 @@ public class GiveawaysItem {
     private String id;
     private String title;
     private Drawable image;
+    private String tgLink;
     private Date startDate;
     private Date endDate;
     private String category;
@@ -24,6 +25,7 @@ public class GiveawaysItem {
     public GiveawaysItem(String id,
                          String title,
                          Drawable image,
+                         String tgLink,
                          Date startDate,
                          Date endDate,
                          String category,
@@ -35,6 +37,7 @@ public class GiveawaysItem {
         this.id = id;
         this.title = title;
         this.image = image;
+        this.tgLink = tgLink;
         this.startDate = startDate;
         this.endDate = endDate;
         this.category = category;
@@ -64,6 +67,14 @@ public class GiveawaysItem {
 
     public void setImage(Drawable image) {
         this.image = image;
+    }
+
+    public String getTgLink() {
+        return tgLink;
+    }
+
+    public void setTgLink(String tgLink) {
+        this.tgLink = tgLink;
     }
 
     public void setTitle(String title) {
