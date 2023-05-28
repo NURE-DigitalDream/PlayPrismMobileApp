@@ -1,10 +1,14 @@
 package com.example.playprism.ui.giveaways;
 
+import static com.example.playprism.bl.services.RequestManager.makeGetRequest;
+
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -14,11 +18,19 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.VolleyError;
 import com.example.playprism.R;
 import com.example.playprism.bl.adapters.GiveawaysAdapter;
+import com.example.playprism.bl.responses.GiveawaysResponse;
+import com.example.playprism.bl.services.ResponseCallback;
+import com.example.playprism.bl.util.JsonParser;
 import com.example.playprism.databinding.FragmentGiveawaysBinding;
 import com.example.playprism.bl.models.GiveawaysItem;
+import com.example.playprism.bl.models.UserData;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,6 +40,8 @@ import java.util.List;
 public class GiveawaysFragment extends Fragment {
 
     private FragmentGiveawaysBinding binding;
+
+    private List<GiveawaysItem> giveawaysItems;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -50,7 +64,7 @@ public class GiveawaysFragment extends Fragment {
         Context context = this.getContext();
 
         // create list:
-        List<GiveawaysItem> giveawaysItems = new ArrayList<>();
+        giveawaysItems = new ArrayList<>();
         giveawaysItems.add(new GiveawaysItem("1", "Cyberpunk 2077", ContextCompat.getDrawable(context, R.drawable.giveaways_item_photo_cyberpunk), startDate, endDate, "Ключ", null, "2020", "CD PROJEKT RED", "Пригоди, Рольові, Екшени, Шутери, Відкритий світ, З сюжетом", GiveawayStatus.FINISHED_YOU_NOT_WIN));
         giveawaysItems.add(new GiveawaysItem("2", "The Witcher: Wild Hunt", ContextCompat.getDrawable(context, R.drawable.giveaways_item_photo_the_witcher), startDate, endDate, "Ключ", null, "2020", "CD PROJEKT RED", "Пригоди, Рольові, Екшени, Шутери, Відкритий світ, З сюжетом", GiveawayStatus.FINISHED_YOU_WIN));
         giveawaysItems.add(new GiveawaysItem("3", "The Elder Skrolls V: Skyrim", ContextCompat.getDrawable(context, R.drawable.giveaways_item_photo_skyrim), startDate, endDate, "Ключ",null, "2020", "CD PROJEKT RED", "Пригоди, Рольові, Екшени, Шутери, Відкритий світ, З сюжетом", GiveawayStatus.NOT_FINISHED_YOU_SUBSCRIBED));
@@ -66,6 +80,7 @@ public class GiveawaysFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(this.getContext(), DividerItemDecoration.VERTICAL));
 
+        getGiveaways();
 
         return binding.getRoot();
     }
@@ -74,5 +89,42 @@ public class GiveawaysFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+
+    private void getGiveaways() {
+
+        giveawaysItems = new ArrayList<>();
+        UserData user = JsonParser.getUser(getContext());
+        String accessToken = user.getAccessToken();
+
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("PageInfo.Size", 20);
+            jsonParams.put("PageInfo.Number", 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String url = "http://10.0.2.2:5000/api/giveaways";
+        String params = "?PageInfo.Size=20&PageInfo.Number=1";
+        String fullUrl = url + params;
+
+        final String[] responseString = new String[1];
+        makeGetRequest(getContext(), fullUrl, new ResponseCallback() {
+            @Override
+            public void onResponse(String response) {
+
+                Log.i("Response", response);
+                responseString[0] = response;
+            }
+            @Override
+            public void onError(VolleyError error) {
+                Toast.makeText(getActivity(), "Failed to get Giveaways!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+//        List<GiveawaysResponse> giveawaysResponseItems = JsonParser.getGiveaways(responseString[0]);
+//        Log.i("Response List<GiveawaysResponse>", giveawaysResponseItems.toString());
     }
 }
