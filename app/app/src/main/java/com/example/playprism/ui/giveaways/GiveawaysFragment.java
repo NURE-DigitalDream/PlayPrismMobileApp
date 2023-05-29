@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -27,6 +28,12 @@ import com.example.playprism.bl.services.ResponseCallback;
 import com.example.playprism.bl.util.JsonParser;
 import com.example.playprism.databinding.FragmentGiveawaysBinding;
 import com.example.playprism.bl.models.UserData;
+
+import com.example.playprism.bl.adapters.HistoryPurchaseAdapter;
+import com.example.playprism.databinding.FragmentGiveawaysBinding;
+import com.example.playprism.bl.models.GiveawaysItem;
+import com.example.playprism.bl.models.PurchasedItem;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -52,6 +59,7 @@ public class GiveawaysFragment extends Fragment {
                 new ViewModelProvider(this).get(GiveawaysViewModel.class);
 
         binding = FragmentGiveawaysBinding.inflate(inflater, container, false);
+        String tgLink = "https://t.me/playprism";
 
         showGiveaways();
         return binding.getRoot();
@@ -62,7 +70,6 @@ public class GiveawaysFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
 
     private void showGiveaways() {
 

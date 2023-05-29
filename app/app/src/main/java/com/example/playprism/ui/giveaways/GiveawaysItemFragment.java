@@ -1,7 +1,13 @@
 package com.example.playprism.ui.giveaways;
 
 import android.annotation.SuppressLint;
+
 import android.content.Context;
+
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -120,7 +126,8 @@ public class GiveawaysItemFragment extends Fragment {
 
         if (status == GiveawayStatus.FINISHED_YOU_NOT_WIN) {
             binding.giveawayEndDateTextView.setText("Розіграш завершено");
-            binding.dateTimeBarFinishedNotWin.setVisibility(View.VISIBLE);
+            binding.dateTimeBar.setVisibility(View.VISIBLE);
+            binding.dateTimeBar.setProgress(100, true);
             binding.timeLeftConstraintLayout.setVisibility(View.VISIBLE);
             binding.daysTextView.setText("00");
             binding.hoursTextView.setText("00");
@@ -136,7 +143,8 @@ public class GiveawaysItemFragment extends Fragment {
 
         else if (status == GiveawayStatus.FINISHED_YOU_WIN) {
             binding.giveawayEndDateTextView.setText("Розіграш завершено");
-            binding.dateTimeBarFinished.setVisibility(View.VISIBLE);
+            binding.dateTimeBar.setVisibility(View.VISIBLE);
+            binding.dateTimeBar.setProgress(100, true);
             binding.winningBanner.setVisibility(View.VISIBLE);
             binding.winningText.setVisibility(View.VISIBLE);
             binding.winButton.setVisibility(View.VISIBLE);
@@ -145,12 +153,21 @@ public class GiveawaysItemFragment extends Fragment {
         else if (status == GiveawayStatus.NOT_FINISHED_YOU_SUBSCRIBED) {
             binding.giveawayEndDateTextView.setText("Розіграш до " + endDateString);
 
+            long timeLeftInMillis = giveaway.getEndDate().getTime() - System.currentTimeMillis();
+            long giveawayDuration = giveaway.getEndDate().getTime() - giveaway.getStartDate().getTime();
+            int progress = (int) ((giveawayDuration - timeLeftInMillis) * 100 / giveawayDuration);
+
             binding.dateTimeBar.setVisibility(View.VISIBLE);
+            binding.dateTimeBar.setProgress(progress, true);
             binding.timeLeftConstraintLayout.setVisibility(View.VISIBLE);
             binding.timeLeftTextView.setVisibility(View.VISIBLE);
             binding.conditionForParticipationTextView.setVisibility(View.VISIBLE);
             binding.buttonSubscribe.setVisibility(View.VISIBLE);
             binding.buttonTakePart.setVisibility(View.VISIBLE);
+
+            binding.buttonSubscribe.setOnClickListener(v -> {
+                openBrowserLink(giveaway.getTgLink());
+            });
 
             startTimer(resEndDate);
         }
@@ -158,12 +175,20 @@ public class GiveawaysItemFragment extends Fragment {
         else if (status == GiveawayStatus.NOT_FINISHED_YOU_NOT_SUBSCRIBED) {
             binding.giveawayEndDateTextView.setText("Розіграш до " + endDateString);
 
+            long timeLeftInMillis = giveaway.getEndDate().getTime() - System.currentTimeMillis();
+            long giveawayDuration = giveaway.getEndDate().getTime() - giveaway.getStartDate().getTime();
+            int progress = (int) ((giveawayDuration - timeLeftInMillis) * 100 / giveawayDuration);
+
             binding.dateTimeBar.setVisibility(View.VISIBLE);
+            binding.dateTimeBar.setProgress(progress, true);
             binding.timeLeftConstraintLayout.setVisibility(View.VISIBLE);
             binding.timeLeftTextView.setVisibility(View.VISIBLE);
             binding.conditionForParticipationTextView.setVisibility(View.VISIBLE);
             binding.buttonSubscribe.setVisibility(View.VISIBLE);
             binding.buttonTakePart.setVisibility(View.VISIBLE);
+            binding.buttonSubscribe.setOnClickListener(v -> {
+                openBrowserLink(giveaway.getTgLink());
+            });
 
             startTimer(resEndDate);
         }
@@ -184,7 +209,6 @@ public class GiveawaysItemFragment extends Fragment {
         GiveawaysItemFragment.giveaway = giveaway;
     }
 
-    // function to update time left
     private void updateCountDownText() {
         long timeLeftInMillis = resEndDate.getTime() - System.currentTimeMillis();
 
@@ -197,9 +221,12 @@ public class GiveawaysItemFragment extends Fragment {
         binding.hoursTextView.setText(String.valueOf(hours));
         binding.minutesTextView.setText(String.valueOf(minutes));
         binding.secondsTextView.setText(String.valueOf(seconds));
+
+        long giveawayDuration = giveaway.getEndDate().getTime() - giveaway.getStartDate().getTime();
+        int progress = (int) ((giveawayDuration - timeLeftInMillis) * 100 / giveawayDuration);
+        binding.dateTimeBar.setProgress(progress, true);
     }
 
-    // start async timer
     private void startTimer(Date endDate) {
         timeLeftInMillis = endDate.getTime() - System.currentTimeMillis();
         countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
@@ -218,11 +245,15 @@ public class GiveawaysItemFragment extends Fragment {
         timerRunning = true;
     }
 
-    // stop timer
     private void stopTimer() {
         if (countDownTimer != null) {
             countDownTimer.cancel();
         }
+    }
+
+    public void openBrowserLink(String url) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(browserIntent);
     }
 
 }
