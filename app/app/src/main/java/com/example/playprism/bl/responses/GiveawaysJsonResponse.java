@@ -6,6 +6,7 @@ import java.util.List;
 
 public class GiveawaysJsonResponse {
     List<GiveawaysResponse> data;
+
     private String error;
 
     public List<GiveawaysResponse> getData() {

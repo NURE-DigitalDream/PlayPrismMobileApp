@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -21,12 +20,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.VolleyError;
 import com.example.playprism.R;
 import com.example.playprism.bl.adapters.GiveawaysAdapter;
+import com.example.playprism.bl.models.GiveawaysItem;
 import com.example.playprism.bl.responses.GiveawaysResponse;
 import com.example.playprism.bl.services.RequestManager;
 import com.example.playprism.bl.services.ResponseCallback;
 import com.example.playprism.bl.util.JsonParser;
 import com.example.playprism.databinding.FragmentGiveawaysBinding;
-import com.example.playprism.bl.models.GiveawaysItem;
 import com.example.playprism.bl.models.UserData;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -41,8 +40,6 @@ import java.util.List;
 public class GiveawaysFragment extends Fragment {
 
     private FragmentGiveawaysBinding binding;
-
-    private List<GiveawaysItem> giveawaysItems;
     private List<GiveawaysResponse> giveawaysResponseItems;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -56,31 +53,7 @@ public class GiveawaysFragment extends Fragment {
 
         binding = FragmentGiveawaysBinding.inflate(inflater, container, false);
 
-        Date startDate = new Date();
-
-        Date endDate = new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.set(2023, 5, 15, 18, 0, 0);
-        endDate = cal.getTime();
-
-        Context context = this.getContext();
-
-        // create list:
-        giveawaysItems = new ArrayList<>();
-
-
-        // define the adapter:
-        GiveawaysAdapter adapter = new GiveawaysAdapter(this.getContext(), giveawaysItems);
-
-        // set the RecyclerView:
-        RecyclerView recyclerView = binding.recyclerView;
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this.getContext(), DividerItemDecoration.VERTICAL));
-
-        getGiveaways();
-
+        showGiveaways();
         return binding.getRoot();
     }
 
@@ -91,9 +64,8 @@ public class GiveawaysFragment extends Fragment {
     }
 
 
-    private void getGiveaways() {
+    private void showGiveaways() {
 
-        giveawaysItems = new ArrayList<>();
         UserData user = JsonParser.getUser(getContext());
         String accessToken = user.getAccessToken();
 
@@ -114,6 +86,13 @@ public class GiveawaysFragment extends Fragment {
             public void onResponse(String response) {
                 giveawaysResponseItems = JsonParser.getGiveaways(response);
                 Log.i("Giveaways", giveawaysResponseItems.toString());
+
+                // Initialize and set the adapter here
+                GiveawaysAdapter adapter = new GiveawaysAdapter(getContext(), giveawaysResponseItems);
+                RecyclerView recyclerView = binding.recyclerView;
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                recyclerView.setAdapter(adapter);
+                recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
             }
             @Override
             public void onError(VolleyError error) {

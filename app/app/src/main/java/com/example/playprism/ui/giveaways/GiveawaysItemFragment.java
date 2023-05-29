@@ -1,6 +1,7 @@
 package com.example.playprism.ui.giveaways;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -8,30 +9,43 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.playprism.R;
+import com.example.playprism.bl.models.Product;
+import com.example.playprism.bl.responses.GiveawaysResponse;
+import com.example.playprism.bl.util.DateConverter;
+import com.example.playprism.bl.util.JsonParser;
 import com.example.playprism.databinding.FragmentGiveawaysItemProfileBinding;
 import com.example.playprism.bl.models.GiveawaysItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
 
 public class GiveawaysItemFragment extends Fragment {
     private FragmentGiveawaysItemProfileBinding binding;
 
     private View root;
 
-    private static GiveawaysItem giveaway;
+    private static GiveawaysResponse giveaway;
 
     private CountDownTimer countDownTimer;
 
     private long timeLeftInMillis;
 
     private boolean timerRunning;
+
+    private Date resEndDate;
+
 
     @SuppressLint({"ResourceType", "SetTextI18n"})
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -47,15 +61,64 @@ public class GiveawaysItemFragment extends Fragment {
             navController.navigate(R.id.navigation_giveaways);
         });
 
-        binding.bigTitle.setText(giveaway.getTitle());
-        binding.cardView.setImageDrawable(giveaway.getImage());
-        binding.minorTitle.setText(giveaway.getTitle());
-        binding.categoryTextView.setText(giveaway.getCategory());
-        binding.productionYearTextView.setText(giveaway.getYearOfRelease());
-        binding.companyNameTextView.setText(giveaway.getDeveloperCompany());
-        binding.genresTextView.setText(giveaway.getGenres());
+        Context context = this.getContext();
 
-        if (giveaway.getStatus() == GiveawayStatus.FINISHED_YOU_NOT_WIN) {
+        Product product = giveaway.getProduct();
+
+        List<String> images = new ArrayList<>();
+        images.add("giveaways_item_photo_cyberpunk");
+        images.add("giveaways_item_photo_resident_evil");
+        images.add("giveaways_item_photo_skyrim");
+        images.add("giveaways_item_photo_the_witcher");
+        Random random = new Random();
+        int randomNumber = random.nextInt(4);
+        int imageId = context.getResources().getIdentifier(images.get(randomNumber), "drawable", context.getPackageName());
+
+        String productName = product.getName();
+
+
+        String endDateString = DateConverter.formatDate(giveaway.getExpirationDate());
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        try {
+            resEndDate = format.parse(endDateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        String responseYearOfRelease = product.getReleaseDate();
+        String yearOfRelease = DateConverter.formatDate(responseYearOfRelease);
+
+        StringBuilder genresString = new StringBuilder();
+        List<String> genres = product.getGenres();
+
+        for (int i = 0; i < genres.size(); i++) {
+            genresString.append(genres.get(i));
+            if (i != genres.size() - 1) {
+                genresString.append(", ");
+            }
+        }
+
+        GiveawayStatus status;
+
+        if (giveaway.getWinner() == null) {
+            status = GiveawayStatus.NOT_FINISHED_YOU_NOT_SUBSCRIBED;
+        } else {
+            if (Objects.equals(giveaway.getWinner().getId(), JsonParser.getUser(context).getUserId())) {
+                status = GiveawayStatus.FINISHED_YOU_WIN;
+            } else {
+                status = GiveawayStatus.FINISHED_YOU_NOT_WIN;
+            }
+        }
+
+        binding.bigTitle.setText(product.getName());
+        binding.cardView.setImageDrawable(ContextCompat.getDrawable(context ,imageId));
+        binding.minorTitle.setText(productName);
+        binding.categoryTextView.setText("Ключ");
+        binding.productionYearTextView.setText(yearOfRelease);
+        binding.companyNameTextView.setText(genresString);
+        binding.genresTextView.setText(product.getShortDescription());
+
+        if (status == GiveawayStatus.FINISHED_YOU_NOT_WIN) {
             binding.giveawayEndDateTextView.setText("Розіграш завершено");
             binding.dateTimeBarFinishedNotWin.setVisibility(View.VISIBLE);
             binding.timeLeftConstraintLayout.setVisibility(View.VISIBLE);
@@ -68,9 +131,10 @@ public class GiveawaysItemFragment extends Fragment {
             binding.winnerTextView.setVisibility(View.VISIBLE);
             binding.winnerImageView.setVisibility(View.VISIBLE);
             binding.winnerNameTextView.setVisibility(View.VISIBLE);
+            binding.winnerNameTextView.setText(giveaway.getWinner().getNickname());
         }
 
-        else if (giveaway.getStatus() == GiveawayStatus.FINISHED_YOU_WIN) {
+        else if (status == GiveawayStatus.FINISHED_YOU_WIN) {
             binding.giveawayEndDateTextView.setText("Розіграш завершено");
             binding.dateTimeBarFinished.setVisibility(View.VISIBLE);
             binding.winningBanner.setVisibility(View.VISIBLE);
@@ -78,10 +142,7 @@ public class GiveawaysItemFragment extends Fragment {
             binding.winButton.setVisibility(View.VISIBLE);
         }
 
-        else if (giveaway.getStatus() == GiveawayStatus.NOT_FINISHED_YOU_SUBSCRIBED) {
-            Date endDate = giveaway.getEndDate();
-            @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-            String endDateString = dateFormat.format(endDate);
+        else if (status == GiveawayStatus.NOT_FINISHED_YOU_SUBSCRIBED) {
             binding.giveawayEndDateTextView.setText("Розіграш до " + endDateString);
 
             binding.dateTimeBar.setVisibility(View.VISIBLE);
@@ -91,13 +152,10 @@ public class GiveawaysItemFragment extends Fragment {
             binding.buttonSubscribe.setVisibility(View.VISIBLE);
             binding.buttonTakePart.setVisibility(View.VISIBLE);
 
-            startTimer(giveaway.getEndDate());
+            startTimer(resEndDate);
         }
 
-        else if (giveaway.getStatus() == GiveawayStatus.NOT_FINISHED_YOU_NOT_SUBSCRIBED) {
-            Date endDate = giveaway.getEndDate();
-            @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-            String endDateString = dateFormat.format(endDate);
+        else if (status == GiveawayStatus.NOT_FINISHED_YOU_NOT_SUBSCRIBED) {
             binding.giveawayEndDateTextView.setText("Розіграш до " + endDateString);
 
             binding.dateTimeBar.setVisibility(View.VISIBLE);
@@ -107,7 +165,7 @@ public class GiveawaysItemFragment extends Fragment {
             binding.buttonSubscribe.setVisibility(View.VISIBLE);
             binding.buttonTakePart.setVisibility(View.VISIBLE);
 
-            startTimer(giveaway.getEndDate());
+            startTimer(resEndDate);
         }
 
         root = binding.getRoot();
@@ -122,13 +180,13 @@ public class GiveawaysItemFragment extends Fragment {
         binding = null;
     }
 
-    public static void setGiveawayId(GiveawaysItem giveaway) {
+    public static void setGiveawayId(GiveawaysResponse giveaway) {
         GiveawaysItemFragment.giveaway = giveaway;
     }
 
     // function to update time left
     private void updateCountDownText() {
-        long timeLeftInMillis = giveaway.getEndDate().getTime() - System.currentTimeMillis();
+        long timeLeftInMillis = resEndDate.getTime() - System.currentTimeMillis();
 
         int days = (int) (timeLeftInMillis / 1000) / 86400;
         int hours = (int) ((timeLeftInMillis / 1000) % 86400) / 3600;
