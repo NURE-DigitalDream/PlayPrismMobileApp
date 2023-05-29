@@ -1,13 +1,9 @@
 package com.example.playprism.ui.purchasehistory;
 
-import static com.example.playprism.bl.services.RequestManager.makeGetRequest;
-
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,21 +14,11 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.VolleyError;
 import com.example.playprism.R;
-import com.example.playprism.bl.adapters.GiveawaysAdapter;
 import com.example.playprism.bl.adapters.HistoryPurchaseAdapter;
-import com.example.playprism.bl.models.UserData;
-import com.example.playprism.bl.responses.GiveawaysResponse;
-import com.example.playprism.bl.services.RequestManager;
-import com.example.playprism.bl.services.ResponseCallback;
-import com.example.playprism.bl.util.JsonParser;
 import com.example.playprism.databinding.FragmentPurchaseHistoryBinding;
 import com.example.playprism.bl.models.PurchasedItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,8 +27,6 @@ import java.util.List;
 public class PurchaseHistoryFragment extends Fragment {
 
     private FragmentPurchaseHistoryBinding binding;
-
-    private List<PurchasedItem> purchaseHistoryResponseItems;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -55,12 +39,39 @@ public class PurchaseHistoryFragment extends Fragment {
 
         binding = FragmentPurchaseHistoryBinding.inflate(inflater, container, false);
 
+        // create list:
+        List<PurchasedItem> purchasedItems = new ArrayList<>();
+        purchasedItems.add(new PurchasedItem("title 1", Calendar.getInstance().getTime(), 1750));
+        purchasedItems.add(new PurchasedItem("title 2", Calendar.getInstance().getTime(), 1750));
+        purchasedItems.add(new PurchasedItem("title 3", Calendar.getInstance().getTime(), 1750));
+        purchasedItems.add(new PurchasedItem("title 4", Calendar.getInstance().getTime(), 1750));
+        purchasedItems.add(new PurchasedItem("title 5", Calendar.getInstance().getTime(), 1750));
+        purchasedItems.add(new PurchasedItem("title 6", Calendar.getInstance().getTime(), 1750));
+        purchasedItems.add(new PurchasedItem("title 7", Calendar.getInstance().getTime(), 1750));
+        purchasedItems.add(new PurchasedItem("title 8", Calendar.getInstance().getTime(), 1750));
+        purchasedItems.add(new PurchasedItem("title 9", Calendar.getInstance().getTime(), 1750));
+        purchasedItems.add(new PurchasedItem("title 10", Calendar.getInstance().getTime(), 1750));
+        purchasedItems.add(new PurchasedItem("title 11", Calendar.getInstance().getTime(), 1750));
+        purchasedItems.add(new PurchasedItem("title 12", Calendar.getInstance().getTime(), 1750));
+        purchasedItems.add(new PurchasedItem("title 13", Calendar.getInstance().getTime(), 1750));
+        purchasedItems.add(new PurchasedItem("title 14", Calendar.getInstance().getTime(), 1750));
+
+
         binding.backIcon.setOnClickListener(v -> {
             NavController navController = Navigation.findNavController(v);
             navController.navigate(R.id.navigation_profile);
         });
 
-        showPurchaseHistory();
+
+        // define the adapter:
+        HistoryPurchaseAdapter adapter = new HistoryPurchaseAdapter(this.getContext(), purchasedItems);
+
+        // set the RecyclerView:
+        RecyclerView recyclerView = binding.recyclerView;
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this.getContext(), DividerItemDecoration.VERTICAL));
 
         return binding.getRoot();
     }
@@ -71,37 +82,5 @@ public class PurchaseHistoryFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    private void showPurchaseHistory() {
-
-        UserData user = JsonParser.getUser(getContext());
-        String id = user.getUserId();
-
-        String url = RequestManager.BASE_URL + "users/" + id + "/history";
-
-        makeGetRequest(getContext(), url, new ResponseCallback() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    purchaseHistoryResponseItems = JsonParser.getPurchasedItems(response);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                Log.i("History", purchaseHistoryResponseItems.toString());
-
-                // Initialize and set the adapter here
-                HistoryPurchaseAdapter adapter = new HistoryPurchaseAdapter(getContext(), purchaseHistoryResponseItems);
-                RecyclerView recyclerView = binding.recyclerView;
-                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                recyclerView.setAdapter(adapter);
-                recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-            }
-            @Override
-            public void onError(VolleyError error) {
-                Toast.makeText(getActivity(), "Failed to get Giveaways!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
     }
 }
