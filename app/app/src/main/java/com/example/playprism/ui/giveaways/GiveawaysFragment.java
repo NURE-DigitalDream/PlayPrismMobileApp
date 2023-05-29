@@ -1,27 +1,43 @@
 package com.example.playprism.ui.giveaways;
 
+import static com.example.playprism.bl.services.RequestManager.makeGetRequest;
+
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.VolleyError;
 import com.example.playprism.R;
 import com.example.playprism.bl.adapters.GiveawaysAdapter;
+import com.example.playprism.bl.models.GiveawaysItem;
+import com.example.playprism.bl.responses.GiveawaysResponse;
+import com.example.playprism.bl.services.RequestManager;
+import com.example.playprism.bl.services.ResponseCallback;
+import com.example.playprism.bl.util.JsonParser;
+import com.example.playprism.databinding.FragmentGiveawaysBinding;
+import com.example.playprism.bl.models.UserData;
+
 import com.example.playprism.bl.adapters.HistoryPurchaseAdapter;
 import com.example.playprism.databinding.FragmentGiveawaysBinding;
 import com.example.playprism.bl.models.GiveawaysItem;
 import com.example.playprism.bl.models.PurchasedItem;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,6 +47,7 @@ import java.util.List;
 public class GiveawaysFragment extends Fragment {
 
     private FragmentGiveawaysBinding binding;
+    private List<GiveawaysResponse> giveawaysResponseItems;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -42,39 +59,9 @@ public class GiveawaysFragment extends Fragment {
                 new ViewModelProvider(this).get(GiveawaysViewModel.class);
 
         binding = FragmentGiveawaysBinding.inflate(inflater, container, false);
-
-        Date startDate = new Date();
-        Calendar cal2 = Calendar.getInstance();
-        cal2.set(2023, 4, 15, 18, 0, 0);
-        startDate = cal2.getTime();
-
-        Date endDate = new Date();
-        Calendar cal1 = Calendar.getInstance();
-        cal1.set(2023, 5, 15, 18, 0, 0);
-        endDate = cal1.getTime();
-
         String tgLink = "https://t.me/playprism";
 
-        Context context = this.getContext();
-
-        // create list:
-        List<GiveawaysItem> giveawaysItems = new ArrayList<>();
-        giveawaysItems.add(new GiveawaysItem("1", "Cyberpunk 2077", ContextCompat.getDrawable(context, R.drawable.giveaways_item_photo_cyberpunk), tgLink, startDate, endDate, "Ключ", null, "2020", "CD PROJEKT RED", "Пригоди, Рольові, Екшени, Шутери, Відкритий світ, З сюжетом", GiveawayStatus.FINISHED_YOU_NOT_WIN));
-        giveawaysItems.add(new GiveawaysItem("2", "The Witcher: Wild Hunt", ContextCompat.getDrawable(context, R.drawable.giveaways_item_photo_the_witcher), tgLink, startDate, endDate, "Ключ", null, "2020", "CD PROJEKT RED", "Пригоди, Рольові, Екшени, Шутери, Відкритий світ, З сюжетом", GiveawayStatus.FINISHED_YOU_WIN));
-        giveawaysItems.add(new GiveawaysItem("3", "The Elder Skrolls V: Skyrim", ContextCompat.getDrawable(context, R.drawable.giveaways_item_photo_skyrim), tgLink, startDate, endDate, "Ключ",null, "2020", "CD PROJEKT RED", "Пригоди, Рольові, Екшени, Шутери, Відкритий світ, З сюжетом", GiveawayStatus.NOT_FINISHED_YOU_SUBSCRIBED));
-        giveawaysItems.add(new GiveawaysItem("4", "Resident Evil 4", ContextCompat.getDrawable(context, R.drawable.giveaways_item_photo_resident_evil), tgLink, startDate, endDate, "Ключ",null, "2020", "CD PROJEKT RED", "Пригоди, Рольові, Екшени, Шутери, Відкритий світ, З сюжетом", GiveawayStatus.NOT_FINISHED_YOU_NOT_SUBSCRIBED));
-
-        // define the adapter:
-        GiveawaysAdapter adapter = new GiveawaysAdapter(this.getContext(), giveawaysItems);
-
-        // set the RecyclerView:
-        RecyclerView recyclerView = binding.recyclerView;
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this.getContext(), DividerItemDecoration.VERTICAL));
-
-
+        showGiveaways();
         return binding.getRoot();
     }
 
@@ -82,5 +69,35 @@ public class GiveawaysFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private void showGiveaways() {
+
+        UserData user = JsonParser.getUser(getContext());
+        String accessToken = user.getAccessToken();
+
+        String url = RequestManager.BASE_URL + "giveaways";
+        String params = "?PageInfo.Size=20&PageInfo.Number=1";
+        String fullUrl = url + params;
+
+        makeGetRequest(getContext(), fullUrl, new ResponseCallback() {
+            @Override
+            public void onResponse(String response) {
+                giveawaysResponseItems = JsonParser.getGiveaways(response);
+                Log.i("Giveaways", giveawaysResponseItems.toString());
+
+                // Initialize and set the adapter here
+                GiveawaysAdapter adapter = new GiveawaysAdapter(getContext(), giveawaysResponseItems);
+                RecyclerView recyclerView = binding.recyclerView;
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                recyclerView.setAdapter(adapter);
+                recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+            }
+            @Override
+            public void onError(VolleyError error) {
+                Toast.makeText(getActivity(), "Failed to get Giveaways!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }
