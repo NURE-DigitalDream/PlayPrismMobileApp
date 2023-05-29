@@ -69,14 +69,6 @@ public class GiveawaysFragment extends Fragment {
         UserData user = JsonParser.getUser(getContext());
         String accessToken = user.getAccessToken();
 
-        JSONObject jsonParams = new JSONObject();
-        try {
-            jsonParams.put("PageInfo.Size", 20);
-            jsonParams.put("PageInfo.Number", 1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         String url = RequestManager.BASE_URL + "giveaways";
         String params = "?PageInfo.Size=20&PageInfo.Number=1";
         String fullUrl = url + params;
