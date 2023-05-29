@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import com.example.playprism.bl.models.GiveawaysItem;
 import com.example.playprism.bl.models.PurchasedItem;
 import com.example.playprism.bl.models.UserData;
+import com.example.playprism.bl.models.UserProfile;
 import com.example.playprism.bl.responses.GiveawaysJsonResponse;
 import com.example.playprism.bl.responses.GiveawaysResponse;
 import com.example.playprism.bl.responses.UserJsonResponse;
@@ -87,4 +88,26 @@ public class JsonParser {
 
         return purchasedItems;
     }
+
+    public static UserProfile getProfile(String responseString) throws JSONException {
+
+        UserProfile userData = new UserProfile();
+
+        JSONObject jsonObj = new JSONObject(responseString);
+
+        JSONObject dataObj = jsonObj.getJSONObject("data");
+
+        String id = dataObj.getString("id");
+        String nickname = dataObj.getString("nickname");
+        String email = dataObj.getString("email");
+        String password = dataObj.getString("password");
+
+        userData.setId(id);
+        userData.setNickname(nickname);
+        userData.setEmail(email);
+
+        return userData;
+    }
+
+
 }
